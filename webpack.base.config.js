@@ -1,25 +1,32 @@
 const path = require("path");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin  = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const webpack = require('webpack')
+const webpack = require("webpack");
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    app: "./src/index.js",
+    common: ["react", "react-dom"]
   },
   output: {
-    filename: "[name].bundle.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist")
+  },
+  performance: {
+    hints: false
   },
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
         test: /\.css$/,
         use: [
-          'css-hot-loader',
+          "css-hot-loader",
           MiniCssExtractPlugin.loader,
           { loader: "css-loader", options: { importLoaders: 1 } },
           "postcss-loader"
@@ -28,12 +35,12 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'css-hot-loader',
+          "css-hot-loader",
           MiniCssExtractPlugin.loader,
           { loader: "css-loader", options: { importLoaders: 1 } },
           "postcss-loader",
           "less-loader"
-        ],
+        ]
       },
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
@@ -45,29 +52,21 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.html$/,
+        use: [{ loader: "html-loader", options: { minimize: true } }]
       }
     ]
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".json", ".css"]
+  },
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
-      verbose: true,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
       filename: "[name].css",
       chunkFilename: "[id].css"
     }),
-    new HtmlWebpackPlugin({
-      title: 'Output Mana',
-      template: './index.html',
-      inject: false,
-    }),
     
-  ],
-  devtool: 'eval-source-map',
-  devServer: {
-    hot: true
-  } 
+  ]
 };
