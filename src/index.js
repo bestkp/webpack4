@@ -1,3 +1,17 @@
 import {debounce} from 'lodash'
-import iconfont from './assets/font/iconfont'
+import printMe from './print'
 import './style.less'
+
+function component() {
+  var element = document.createElement('div');
+  var btn = document.createElement('button');
+
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+  btn.innerHTML = 'Click me and check the!';
+  btn.onclick = printMe;
+  element.appendChild(btn);
+
+  return element;
+}
+document.body.appendChild(component());
