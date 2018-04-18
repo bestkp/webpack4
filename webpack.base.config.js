@@ -7,7 +7,7 @@ module.exports = {
     app: "./src/index.js",
   },
   output: {
-    path: path.resolve(__dirname, "dist/public"),
+    path: path.resolve(__dirname, "dist/assets"),
   },
   optimization: {
     splitChunks: {
@@ -55,7 +55,7 @@ module.exports = {
           {
             loader: "url-loader",
             options: {
-              limit: 1024 * 1024
+              limit: 10 * 1024
             }
           }
         ]

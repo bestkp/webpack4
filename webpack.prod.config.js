@@ -11,7 +11,7 @@ module.exports = merge(webpackBaseConf, {
   output: {
     filename: "[name].[hash].js",
     chunkFilename: '[name].[chunkhash:6].js',
-    publicPath: '/public/'
+    publicPath: '/assets/'
   },
   optimization: {
     splitChunks: {
@@ -32,7 +32,7 @@ module.exports = merge(webpackBaseConf, {
     }),
     new HtmlWebpackPlugin({
       title: "webpack4",
-      filename: 'index.html',
+      filename: '../index.html',
       template: path.join(__dirname, './index.html'),
     }),
     new MiniCssExtractPlugin({
