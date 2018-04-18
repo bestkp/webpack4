@@ -7,6 +7,7 @@ const App = () => {
   return (
     <div>
       <p>React here! + {square(5)}</p>
+      <p>{process.env.NODE_ENV}</p>
     </div>
   );
 };
