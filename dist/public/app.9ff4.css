@@ -1,0 +1,19 @@
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+div {
+  color: darkslateblue;
+  font-size: 30px;
+  width: 500px;
+  display: -ms-flexbox;
+  display: flex;
+}
+div .p {
+  font-size: 30px;
+  color: black;
+}
+

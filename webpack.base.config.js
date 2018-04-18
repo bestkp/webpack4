@@ -5,14 +5,21 @@ const webpack = require("webpack");
 module.exports = {
   entry: {
     app: "./src/index.js",
-    common: ["react", "react-dom"]
   },
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist/public"),
   },
-  performance: {
-    hints: false
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
   },
   module: {
     rules: [
@@ -56,6 +63,10 @@ module.exports = {
       {
         test: /\.html$/,
         use: [{ loader: "html-loader", options: { minimize: true } }]
+      },
+      {
+        include: path.resolve("node_modules", "lodash"),
+        sideEffects: false
       }
     ]
   },
@@ -63,10 +74,6 @@ module.exports = {
     extensions: [".js", ".jsx", ".json", ".css"]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    }),
     
   ]
 };

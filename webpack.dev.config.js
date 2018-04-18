@@ -1,23 +1,23 @@
 const path = require("path");
-const merge = require('webpack-merge')
+const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require('webpack')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
-const webpackBaseConf = require('./webpack.base.config')
+const webpackBaseConf = require("./webpack.base.config");
 
 module.exports = merge(webpackBaseConf, {
-  mode: 'development',
+  mode: "development",
+  devtool: "inline-source-map",
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: "webpack4",
-      filename: 'index.html',
-      template: path.join(__dirname, './index.html'),
+      filename: "index.html",
+      template: path.join(__dirname, "./index.html")
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
     })
-  ],
-  devtool: 'eval-source-map',
-  devServer: {
-    hot: true,
-    // contentBase: ''
-  } 
-})
+  ]
+});
